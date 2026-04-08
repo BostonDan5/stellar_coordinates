@@ -1,0 +1,31 @@
+Start a python3 project in "G:\Home\Users\Dan\My Documents\Technical\Programming Projects\Stellar Coordinates". Create a virtual environment and .gitignore file. Activate the venv; all requirements will be added there.
+
+Create a Python main routine to read data/hyg_v42.csv into a Pandas dataframe. The first row of the CSV contains the headers
+
+Read data/constellations.json into a separate dataframe. Find the unique constellation abbrevations in hyg_df['con']. Verify for each that the abbrevation appears in the "abbr" column in the new dataframe.
+
+Create a GUI with a left-hand interaction panel and a right-hand display canvas. The canvas should be 1000x1000 pixels. In the left hand panel display a list of all constellations, using the name in con_abbrs['name']. For ordering, first display the constellations in ZODIAC_ABBREVIATIONS in that order. Then add a spacer. Then display the remaining constellation names in alphabetic order.
+
+When a constellation is selected, extract the matching rows from hyg_df. Each row represents a star. For all stars in the constellation, build a list of the values in the 'ra' (right ascension) and 'dec' (declnation) columns. Calculate the ra and dec bounding box. Convert to X and Y coordinate by projecting the ra and dec values onto a flat plane. Renormalize the coordinates, maintaing aspect ratio, to fit the canvas with a 15 pixel margin. Display each star as an 8-arm crosshair.
+
+(note: Claude used a black background with white crosshairs - good guess!)
+
+When a constellation is selected, replace the constellation list with a scrolling list of stars in that constellation. Each item in the list should consist of the 'bf' field, follewed by the 'proper' field (if any) in parentheses. Order by the 'mag' value, ascending.  The list should contain only 100 items (define a constant) and only those stars should be displayed on the canvas. Add a "Constellations" button to exit this mode, clearing the canvas and restoring the list of constellations.
+
+Implement the following logic for the list of stars. When an item in the list is selected, select all items in the list from the beginning to that selection, unselect any selected items following the selection, and display only the selected stars on the canvas. When the list first appears, select the last item in the list with a non-empty 'proper' field.
+
+In the canvas, use white for background and black for the stars. Also, label all the visible stars with blue font.
+
+If a label would be clipped by the right border of the canvas, displace it vertically so it appears under the star crosshairs, and left such that it is no longer clipped, and obeys the MARGIN.
+
+When stars are being displayed, add a button that will export a png file for the stars and labels in the canvas. Put the exports in the outputs directory and use the constellation name for the filename.
+
+Fix the following issues: The entire canvas area (where the stars are rendered) should be exported, but none of the control panel on the left. Also, the Constellations and Export PNG buttons should be vertically stacked, with the constellation title and list displayed below.
+
+(bugs as described below)
+
+Fix the following issues: 1) The button frame is being displayed below the listbox. It should be displayed above the header label. 2) The exported image does not display the entire canvas area (the right hand side and bottom is cropped) and improperly includes part of the left panel.
+
+Add a --combined option to the command line. If specified, the current export behavior is followed. If omitted (the default), export the star images to <constellation>_start.png and the labels to <constellation>_names.png.
+
+I created an empty repository on github called stellar_coordinates. Please commit and push this code to that repository. My github user name is BostonDan5 and my email is millerandgreen@comcast.net
